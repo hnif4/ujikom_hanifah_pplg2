@@ -17,9 +17,6 @@
                 
                 <!-- Welcome Text & Quote -->
                 <div class="absolute inset-0 flex flex-col items-center justify-center text-white px-4">
-                    <h1 class="text-4xl md:text-5xl font-bold mb-4 text-center">
-                        Gamaki SMKN 4 Kota Bogor
-                    </h1>
                     <p class="text-lg md:text-xl text-center max-w-3xl mx-auto text-gray-200 mb-8">
                         "Simpan Kenangan berharga sekolah dengan Gallery Masa kini karena waktu tidak bisa diulangi"
                     </p>
