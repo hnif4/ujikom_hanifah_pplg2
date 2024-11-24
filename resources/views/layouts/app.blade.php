@@ -16,6 +16,8 @@ shrink-to-fit=no">
     <link
         href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;50
 0;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <!-- js -->
     <script
         src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js">
@@ -154,14 +156,6 @@ Request::is('admin/manajemenadmin*') ? ' bg-gray-700 bg-opacity-25 textgray-100'
                 </a>
 
                 <a class="flex items-center mt-4 py-2 px-6 hover:bggray-700 hover:bg-opacity-25 hover:text-gray-100 {{
-Request::is('admin/profilesaya*') ? ' bg-gray-700 bg-opacity-25 textgray-100' : 'text-gray-500' }}"
-                    href="{{   route('admin.profile.index') }}">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                    </svg>
-                    <span class="mx-3">Admin</span>
-                </a>
-                <a class="flex items-center mt-4 py-2 px-6 hover:bggray-700 hover:bg-opacity-25 hover:text-gray-100 {{
 Request::is('admin/slider*') ? ' bg-gray-700 bg-opacity-25 textgray-100' : 'text-gray-500' }}"
                     href="{{   route('admin.slider.index') }}">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -173,9 +167,8 @@ Request::is('admin/slider*') ? ' bg-gray-700 bg-opacity-25 textgray-100' : 'text
             </nav>
         </div>
         <div class="flex-1 flex flex-col overflow-hidden">
-            <header class="flex justify-between items-center py-4 px-6
-bg-white">
-
+            <header class="flex justify-between items-center py-4 px-6 bg-gray-300">
+   
                 <div class="flex items-center">
                     <button @click="sidebarOpen = true" class="textgray-500 focus:outline-none lg:hidden">
                         <svg class="h-6 w-6" viewBox="0 0 24 24"
@@ -206,6 +199,11 @@ rounded-md overflow-hidden shadow-sm z-10">
                                 {{ auth()->user()->name }}
                             </div>
                             <hr>
+                           <!-- Admin -->
+            <a href="{{ route('admin.profile.index') }}" 
+               class="block px-4 py-2 text-sm text-gray-800 hover:bg-blue-500 hover:text-white">
+                Edit Profile
+            </a>
                             <!-- Kembali ke Homepage -->
                             <a href="{{ url('/') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Homepage</a>
                             <a href="{{ route('logout') }}"

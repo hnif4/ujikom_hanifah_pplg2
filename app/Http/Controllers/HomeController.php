@@ -16,7 +16,7 @@ class HomeController extends Controller
     public function index()
     {
         $sliders = Slider::all();
-        $profiles = ProfileSekolah::whereIn('id', [1, 2])->get(); // Ambil hanya visi dan misi
+        $profiles = ProfileSekolah::whereIn('id', [1, 2,3])->get(); 
         $informasiPosts = Post::where('category_id', 1)
             ->where('status', 'aktif')
             ->latest()
@@ -120,22 +120,20 @@ public function agendaPage()
     }
 
     public function search(Request $request)
-    {
-        $keyword = $request->get('keyword');
-        
-        $posts = Post::where('status', 'aktif')
-            ->where(function($query) use ($keyword) {
-                $query->where('judul', 'like', "%{$keyword}%")
-                      ->orWhere('isi', 'like', "%{$keyword}%")
-                      ->when($keyword, function($query) use ($keyword) {
-                          $query->orWhere('lokasi', 'like', "%{$keyword}%");
-                      });
-            })
-            ->latest()
-            ->paginate(10);
-        
-        return view('search', compact('posts', 'keyword'));
-    }
+{
+    $keyword = $request->get('keyword');
+    
+    $posts = Post::where('status', 'aktif')
+        ->where(function($query) use ($keyword) {
+            $query->where('judul', 'like', "%{$keyword}%")
+                  ->orWhere('isi', 'like', "%{$keyword}%");
+        })
+        ->latest()
+        ->paginate(10);
+    
+    return view('search', compact('posts', 'keyword'));
+}
+
 
     public function contact(Request $request)
     {

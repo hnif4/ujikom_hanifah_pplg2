@@ -1,47 +1,41 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gallery Masa Kini</title>
-    
+    <title>Galeri Masa Kini</title>
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Lightbox CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
-    <!-- Tambahkan FullCalendar CSS -->
-<link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css" rel="stylesheet" />
-
-    <script>
-        // Check for dark mode preference
-        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark')
-        } else {
-            document.documentElement.classList.remove('dark')
-        }
-    </script>
+    
+    
 
     <script>
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
                     },
                     colors: {
-                        primary: '#14b8a6',
-                        secondary: '#0d9488',
-                        'primary-light': '#99f6e4',
-                        'primary-dark': '#0f766e',
-                        dark: {
-                            bg: '#134e4a',
-                            card: '#115e59',
-                            text: '#ccfbf1'
+                        primary: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            200: '#99f6e4',
+                            300: '#5eead4',
+                            400: '#2dd4bf',
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                            700: '#0f766e',
+                            800: '#115e59',
+                            900: '#134e4a',
                         }
                     }
                 }
@@ -50,213 +44,115 @@
     </script>
 
     <style>
-        [x-cloak] { display: none !important; }
-        
-        /* Smooth Scroll */
-        html {
-            scroll-behavior: smooth;
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* Custom Scrollbar */
-        .custom-scrollbar::-webkit-scrollbar {
-            height: 6px;
+        main {
+            flex: 1;
         }
 
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 10px;
+        .nav-link {
+            position: relative;
         }
 
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #14b8a6;
-            border-radius: 10px;
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #fff;
+            transition: width 0.3s ease;
         }
 
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #0d9488;
+        .nav-link:hover::after {
+            width: 100%;
         }
 
-        /* Hide scrollbar for IE, Edge and Firefox */
-        .custom-scrollbar {
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: thin;     /* Firefox */
-        }
-
-        /* Form focus ring color */
-        .focus\:ring-primary:focus {
-            --tw-ring-color: #14b8a6;
-            --tw-ring-opacity: 0.5;
-        }
-
-        /* Button hover states */
-        .hover\:bg-primary:hover {
-            background-color: #14b8a6;
-        }
-
-        .hover\:bg-secondary:hover {
-            background-color: #0d9488;
-        }
-
-        /* Text hover states */
-        .hover\:text-primary:hover {
-            color: #14b8a6;
-        }
-
-        /* Border colors */
-        .border-primary {
-            border-color: #14b8a6;
-        }
-
-        /* Background colors */
-        .bg-primary {
-            background-color: #14b8a6;
-        }
-
-        .bg-secondary {
-            background-color: #0d9488;
-        }
-
-        /* Hover Animations */
-        .hover-transition {
-            transition: all 0.3s ease-in-out;
-        }
-
-        .hover-scale:hover {
-            transform: scale(1.05);
-        }
-
-        .hover-lift:hover {
-            transform: translateY(-2px);
-        }
-
-        .hover-shadow:hover {
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Loading Animations */
-        @keyframes shimmer {
-            0% { background-position: -1000px 0; }
-            100% { background-position: 1000px 0; }
-        }
-
-        .skeleton {
-            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-            background-size: 1000px 100%;
-            animation: shimmer 2s infinite linear;
-        }
-
-        /* Smooth Transitions */
-        .page-transition {
-            transition: opacity 0.3s ease-in-out;
-        }
-
-        /* Modern Card Styles */
-        .modern-card {
-            background: rgba(255, 255, 255, 0.8);
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
     </style>
 </head>
-<body class="font-sans antialiased bg-primary-light/10">
+
+<body class="bg-gray-50">
     <!-- Navbar -->
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-primary-dark/95 to-secondary/95 backdrop-blur-md">
-        <div class="container mx-auto px-4">
-            <div class="flex items-center justify-between h-16">
-                <!-- Logo/Brand -->
-                <a href="/" class="flex items-center space-x-3">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5gOfSB6ZM26FPjb_b7jvzcS8K6oJA03u0gg&s" 
-                         alt="SMKN 4 Bogor" 
-                         class="h-10 w-10">
-                    <span class="text-xl font-bold text-white">SMKN 4 BOGOR</span>
-                </a>
-                
-                <!-- Navigation Links & Search -->
-                <div class="hidden md:flex items-center flex-1 justify-center px-16">
-                    <!-- Search Form -->
-                    <form action="{{ route('search') }}" method="GET" class="w-96">
-                        <div class="relative">
-                            <input type="text" 
-                                   name="keyword" 
-                                   placeholder="Cari informasi atau agenda..." 
-                                   value="{{ request('keyword') }}"
-                                   class="w-full bg-primary-dark/50 text-white placeholder-primary-light/70 rounded-lg pl-4 pr-10 py-2 focus:outline-none focus:ring-2 focus:ring-primary-light">
-                            <button type="submit" 
-                                    class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white">
-                                <i class="fas fa-search"></i>
+    <nav class="fixed w-full z-50 top-0">
+        <div class="glass-effect border-b border-primary-200/20">
+            <div class="container mx-auto px-4">
+                <div class="flex items-center justify-between h-16">
+                    <!-- Logo -->
+                    <a href="/" class="flex items-center space-x-3">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5gOfSB6ZM26FPjb_b7jvzcS8K6oJA03u0gg&s"
+                            alt="SMKN 4 Bogor"
+                            class="h-10 w-10 rounded-lg">
+                        <span class="text-xl font-bold text-primary-700">GAMAKI SMKN 4 BOGOR</span>
+                    </a>
+
+                    <!-- Desktop Navigation -->
+                    <div class="hidden md:flex items-center space-x-6">
+                        <a href="/" class="nav-link text-primary-700 hover:text-primary-800 font-medium transition duration-300">Beranda</a>
+                        <a href="/gallery" class="nav-link text-primary-700 hover:text-primary-800 font-medium transition duration-300">Galeri</a>
+
+                        <!-- Dropdown Posts -->
+                        <div class="relative group">
+                            <button class="nav-link text-primary-700 hover:text-primary-800 font-medium transition duration-300 flex items-center py-2">
+                                Postingan
+                                <i class="fas fa-chevron-down ml-1 text-xs transition-transform duration-300 group-hover:rotate-180"></i>
                             </button>
+                            <div class="absolute left-0 top-full pt-2">
+                                <div class="w-48 bg-white rounded-lg shadow-lg py-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 translate-y-2">
+                                    <a href="/informasi" class="block px-4 py-2 text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition duration-300">
+                                        <i class="fas fa-newspaper mr-2"></i>Informasi
+                                    </a>
+                                    <a href="/agenda" class="block px-4 py-2 text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition duration-300">
+                                        <i class="fas fa-calendar-alt mr-2"></i>Agenda
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                    </form>
-                </div>
 
-                <!-- Navigation Links & Login -->
-                <div class="hidden md:flex items-center space-x-8">
-                <a href="{{ url('/') }}" class="text-white hover:text-primary transition">Beranda</a>
-                    <!-- Link to Gallery -->
-            <a href="/gallery" class="text-white hover:text-primary transition">Gallery</a>
-                    <a href="/informasi" class="text-white hover:text-primary transition">Informasi</a>
-                    <a href="/agenda" class="text-white hover:text-primary transition">Agenda</a>
-                    <a href="#maps" class="text-white hover:text-primary transition">Kontak</a>
-                    
-                    <!-- Login Icon -->
-                    <a href="{{ auth()->check() ? url('/admin/dashboard') : route('login') }}" 
-                       class="text-white hover:text-primary transition">
-                        <svg class="w-6 h-6" 
-                             xmlns="http://www.w3.org/2000/svg" 
-                             fill="none" 
-                             viewBox="0 0 24 24" 
-                             stroke-width="1.5" 
-                             stroke="currentColor">
-                            <path stroke-linecap="round" 
-                                  stroke-linejoin="round" 
-                                  d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
-                        </svg>
-                    </a>
-                </div>
+                        <a href="#maps" class="nav-link text-primary-700 hover:text-primary-800 font-medium transition duration-300">Kontak</a>
 
-                <!-- Mobile Menu -->
-                <div class="md:hidden flex items-center space-x-4">
-                    <!-- Mobile Search Button -->
-                    <button type="button" 
-                            class="text-white"
-                            onclick="toggleMobileSearch()">
-                        <i class="fas fa-search"></i>
-                    </button>
+                        <!-- Search Button -->
+                        <button type="button"
+                            onclick="toggleSearch()"
+                            class="p-2 rounded-full hover:bg-primary-100 text-primary-700 transition duration-300">
+                            <i class="fas fa-search"></i>
+                        </button>
 
-                    <!-- Login Icon for Mobile -->
-                    <a href="{{ auth()->check() ? url('/admin/dashboard') : route('login') }}" 
-                       class="text-white">
-                        <svg class="w-6 h-6" 
-                             xmlns="http://www.w3.org/2000/svg" 
-                             fill="none" 
-                             viewBox="0 0 24 24" 
-                             stroke-width="1.5" 
-                             stroke="currentColor">
-                            <path stroke-linecap="round" 
-                                  stroke-linejoin="round" 
-                                  d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
-                        </svg>
-                    </a>
+                        <!-- Login Button -->
+                        <a href="{{ auth()->check() ? url('/admin/dashboard') : route('login') }}"
+                            class="px-4 py-2 rounded-lg bg-primary-600 text-white hover:bg-primary-700 transition duration-300 shadow-sm">
+                            {{ auth()->check() ? 'Dashboard' : 'Login' }}
+                        </a>
+                    </div>
 
                     <!-- Mobile Menu Button -->
-                    <button class="text-white" x-data @click="$dispatch('toggle-menu')">
+                    <button class="md:hidden text-primary-700" @click="$dispatch('toggle-menu')">
                         <i class="fas fa-bars text-xl"></i>
                     </button>
                 </div>
             </div>
+        </div>
 
-            <!-- Mobile Search Form (Hidden by default) -->
-            <div id="mobileSearch" class="md:hidden hidden pb-4">
+        <!-- Search Panel (Hidden by default) -->
+        <div id="searchPanel" class="hidden glass-effect">
+            <div class="container mx-auto px-4 py-4">
                 <form action="{{ route('search') }}" method="GET">
                     <div class="relative">
-                        <input type="text" 
-                               name="keyword" 
-                               placeholder="Cari informasi atau agenda..." 
-                               value="{{ request('keyword') }}"
-                               class="w-full bg-primary-dark/50 text-white placeholder-primary-light/70 rounded-lg pl-4 pr-10 py-2 focus:outline-none focus:ring-2 focus:ring-primary-light">
-                        <button type="submit" 
-                                class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white">
+                        <input type="text"
+                            name="keyword"
+                            placeholder="Cari informasi atau agenda..."
+                            class="w-full px-4 py-2 rounded-lg bg-white/80 border border-primary-200 focus:outline-none focus:ring-2 focus:ring-primary-500">
+                        <button type="submit"
+                            class="absolute right-3 top-1/2 -translate-y-1/2 text-primary-600">
                             <i class="fas fa-search"></i>
                         </button>
                     </div>
@@ -265,100 +161,77 @@
         </div>
     </nav>
 
-    <!-- Mobile Menu -->
-    <div class="md:hidden" x-data="{ open: false }" @toggle-menu.window="open = !open" x-cloak>
-        <div x-show="open" class="fixed inset-0 z-40 bg-black bg-opacity-50" @click="open = false"></div>
-        <div x-show="open" 
-             class="fixed top-0 right-0 z-50 w-64 h-full bg-gradient-to-b from-primary to-primary-dark shadow-lg transform transition-transform duration-300">
-            <div class="p-6">
-                <div class="flex justify-between items-center mb-8">
-                    <h2 class="text-xl font-bold text-gray-800">Menu</h2>
-                    <button @click="open = false" class="text-gray-600">
-                        <i class="fas fa-times text-xl"></i>
-                    </button>
-                </div>
-                <div class="flex flex-col space-y-4">
-                <a href="#tentangkami" @click="open = false" class="text-gray-600 hover:text-primary transition">Tentang Kami</a>
-                    <a href="#gallery" @click="open = false" class="text-gray-600 hover:text-primary transition">Gallery</a>
-                    <a href="#informasi-agenda" @click="open = false" class="text-gray-600 hover:text-primary transition">Informasi & Agenda</a>
-                    <a href="#maps" @click="open = false" class="text-gray-600 hover:text-primary transition">Kontak</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Main Content -->
     <main class="pt-16">
         @yield('content')
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gradient-to-b from-primary-dark to-[#134e4a] text-primary-light/90">
+    <footer class="bg-white border-t border-primary-100 mt-auto">
         <div class="container mx-auto px-4 py-8">
-            <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-                <!-- Website Link -->
-                <div class="text-center md:text-left">
-                    <a href="https://smkn4bogor.sch.id" 
-                       target="_blank"
-                       class="text-white hover:text-primary transition-colors duration-300">
-                        <span class="font-semibold text-lg">SMKN 4 Bogor</span>
-                    </a>
-                    <p class="text-sm mt-1">Jl. Raya Tajur, Kp. Buntar, Muarasari</p>
-                </div>
-                <div class="col-md-4 text-center text-md-start mb-md-0">
-                    <span class="text-body"><a href="#"><i class="fas fa-copyright text-light me-2"></i>Gamaki - Gallery Masa Kini</a> All right reserved.</span>
+            <div class="grid md:grid-cols-4 gap-8">
+                <!-- About -->
+                <div class="space-y-4">
+                    <h3 class="text-lg font-semibold text-primary-800">SMKN 4 Bogor</h3>
+                    <p class="text-gray-600">KR4BAT (Kejuruan Empat Hebat)
+                        Akhlak terpuji, Ilmu terkaji, Terampil dan Teruji.</p>
                 </div>
 
-                <!-- Social Media -->
-                <div class="flex items-center space-x-4">
-                    <a href="https://facebook.com/smkn4bogor" 
-                       target="_blank"
-                       class="hover:text-primary transition-colors duration-300">
-                        <i class="fab fa-facebook-f text-xl"></i>
-                    </a>
-                    <a href="https://instagram.com/smkn4bogor" 
-                       target="_blank"
-                       class="hover:text-primary transition-colors duration-300">
-                        <i class="fab fa-instagram text-xl"></i>
-                    </a>
-                    <a href="https://youtube.com/smkn4bogor" 
-                       target="_blank"
-                       class="hover:text-primary transition-colors duration-300">
-                        <i class="fab fa-youtube text-xl"></i>
-                    </a>
+                <!-- Quick Links -->
+                <div class="space-y-4">
+                    <h3 class="text-lg font-semibold text-primary-800">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/" class="text-gray-600 hover:text-primary-600">Beranda</a></li>
+                        <li><a href="/gallery" class="text-gray-600 hover:text-primary-600">Galeri</a></li>
+                        <li><a href="/informasi" class="text-gray-600 hover:text-primary-600">Informasi</a></li>
+                        <li><a href="/agenda" class="text-gray-600 hover:text-primary-600">Agenda</a></li>
+                    </ul>
                 </div>
 
                 <!-- Contact -->
-                <div class="text-center md:text-right">
-                    <div class="flex items-center justify-center md:justify-end space-x-2">
-                        <i class="fas fa-phone"></i>
-                        <span>(0251) 8242411</span>
-                    </div>
-                    <div class="flex items-center justify-center md:justify-end space-x-2 mt-1">
-                        <i class="fas fa-envelope"></i>
-                        <a href="mailto:info@smkn4bogor.sch.id" 
-                           class="hover:text-primary transition-colors duration-300">
-                            info@smkn4bogor.sch.id
-                        </a>
-                    </div>
-                    
+                <div class="space-y-4">
+                    <h3 class="text-lg font-semibold text-primary-800">Kontak Kami</h3>
+                    <ul class="space-y-2">
+                        <div class="flex space-x-4">
+                            <a href="https://api.whatsapp.com/send/?phone=6282260168886" target="_blank" class="text-primary-600 hover:text-primary-700">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                            <a href="https://web.facebook.com/profile.php?id=100054636630766" class="text-primary-600 hover:text-primary-700">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="https://www.instagram.com/smkn4kotabogor/" class="text-primary-600 hover:text-primary-700">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="https://www.youtube.com/channel/UC4M-6Oc1ZvECz00MlMa4v_A/videos?app=desktop" class="text-primary-600 hover:text-primary-700">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                            <a href="mailto:smkn4@smkn4bogor.sch.id" class="text-primary-600 hover:text-primary-700">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                        </div>
+                    </ul>
+                </div>
+
+                <!-- Copyright -->
+                <div class="space-y-4">
+                    <h3 class="text-lg font-semibold text-primary-800">Galeri Masa Kini</h3>
+                    <p class="text-gray-600">© Ujikom 2024 - Siti Nur Hanifah - 12 PPLG 2. All rights reserved.</p>
                 </div>
             </div>
         </div>
     </footer>
 
     <!-- Scripts -->
-    @yield('scripts')
-    @stack('scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
-    <script src="//unpkg.com/alpinejs" defer></script>
-    
     <script>
-    function toggleMobileSearch() {
-        var searchForm = document.getElementById('mobileSearch');
-        searchForm.classList.toggle('hidden');
-    }
+        function toggleSearch() {
+            const searchPanel = document.getElementById('searchPanel');
+            searchPanel.classList.toggle('hidden');
+        }
     </script>
+    @stack('scripts')
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+
 </body>
+
 </html>

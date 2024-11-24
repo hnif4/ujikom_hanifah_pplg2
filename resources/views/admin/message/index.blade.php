@@ -1,7 +1,7 @@
 @extends('layouts.app', ['title' => 'Messages - Admin'])
 
 @section('content')
-<main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-300">
+<main class="flex-1 overflow-x-hidden overflow-y-auto bg-gradient-to-br from-gray-200 via-gray-400 to-teal-500 text-gray-800">
     <div class="container mx-auto px-6 py-8">
         <div class="flex items-center">
             <div class="relative">

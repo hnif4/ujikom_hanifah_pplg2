@@ -1,69 +1,61 @@
 @extends('layouts.frontend')
 
 @section('content')
-<div class="container py-5 mt-5">
-    <div class="row">
-        <div class="col-12">
-            <div class="mb-4 text-center">
-                <h2 class="mb-3">Hasil Pencarian: "{{ $keyword }}"</h2>
-                <p class="text-muted">Ditemukan {{ $posts->total() }} hasil</p>
+<div class="container mx-auto py-10">
+    <div class="flex flex-col items-center">
+        <!-- Header Pencarian -->
+        <div class="text-center mb-8">
+            <h2 class="text-2xl font-bold mb-2">Hasil Pencarian: "{{ $keyword }}"</h2>
+            <p class="text-gray-600">Ditemukan {{ $posts->total() }} hasil</p>
+        </div>
+
+        <!-- Jika Tidak Ada Hasil -->
+        @if($posts->isEmpty())
+        <div class="flex flex-col items-center justify-center h-64 text-center">
+            <div class="bg-blue-100 text-blue-600 px-4 py-3 rounded-lg shadow-md">
+                <i class="fas fa-info-circle mr-2"></i>
+                Tidak ditemukan hasil untuk pencarian "{{ $keyword }}"
             </div>
-
-            @if($posts->isEmpty())
-                <div class="alert alert-info text-center">
-                    <i class="fas fa-info-circle me-2"></i>
-                    Tidak ditemukan hasil untuk pencarian "{{ $keyword }}"
-                </div>
-            @endif
-
+        </div>
+        @else
+        <!-- Daftar Post -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             @foreach($posts as $post)
-            <div class="card mb-4 shadow-sm border-0">
-                <div class="row g-0">
-                    <div class="col-md-4">
-                        <img src="{{ asset('storage/' . $post->image) }}" 
-                             class="img-fluid rounded-start h-100" 
-                             style="object-fit: cover;" 
-                             alt="{{ $post->judul }}">
+            <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                <img src="{{ asset('storage/' . $post->image) }}" 
+                     alt="{{ $post->judul }}" 
+                     class="h-48 w-full object-cover">
+                <div class="p-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-xs font-semibold text-white bg-{{ $post->category_id == 1 ? 'blue-500' : 'green-500' }} py-1 px-2 rounded">
+                            {{ $post->category_id == 1 ? 'Informasi' : 'Agenda' }}
+                        </span>
+                        <small class="text-gray-500">
+                            <i class="far fa-calendar-alt mr-1"></i>
+                            {{ \Carbon\Carbon::parse($post->tanggal_posts)->format('d M Y') }}
+                        </small>
                     </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span class="badge bg-{{ $post->category_id == 1 ? 'primary' : 'success' }}">
-                                    {{ $post->category_id == 1 ? 'Informasi' : 'Agenda' }}
-                                </span>
-                                <small class="text-muted">
-                                    <i class="far fa-calendar-alt me-1"></i>
-                                    {{ \Carbon\Carbon::parse($post->tanggal_posts)->format('d M Y') }}
-                                </small>
-                            </div>
-                            
-                            <h4 class="card-title mb-2">{{ $post->judul }}</h4>
-                            
-                            @if($post->category_id == 2 && $post->lokasi)
-                            <p class="mb-2">
-                                <i class="fas fa-map-marker-alt text-danger me-2"></i>
-                                {{ $post->lokasi }}
-                            </p>
-                            @endif
-                            
-                            <p class="card-text text-secondary">{{ Str::limit($post->isi, 200) }}</p>
-                            
-                            <a href="{{ $post->category_id == 1 ? route('informasi.show', $post) : route('agenda.show', $post) }}" 
-                               class="btn btn-outline-primary btn-sm">
-                                <i class="fas fa-arrow-right me-2"></i>
-                                {{ $post->category_id == 1 ? 'Baca Selengkapnya' : 'Lihat Detail Agenda' }}
-                            </a>
-                        </div>
-                    </div>
+                    <h4 class="font-semibold text-lg mb-2">{{ $post->judul }}</h4>
+                    @if($post->category_id == 2 && $post->lokasi)
+                    <p class="text-sm text-gray-700 mb-2">
+                        <i class="fas fa-map-marker-alt text-red-500 mr-1"></i>
+                        {{ $post->lokasi }}
+                    </p>
+                    @endif
+                    <p class="text-gray-600 text-sm mb-4">{{ Str::limit($post->isi, 200) }}</p>
+                    <a href="{{ $post->category_id == 1 ? route('informasi.show', $post) : route('agenda.show', $post) }}" 
+                       class="inline-block text-sm font-semibold text-blue-600 hover:text-blue-800">
+                        {{ $post->category_id == 1 ? 'Baca Selengkapnya' : 'Lihat Detail Agenda' }}
+                    </a>
                 </div>
             </div>
             @endforeach
-
-            <!-- Pagination -->
-            <div class="d-flex justify-content-center mt-4">
-                {{ $posts->appends(['keyword' => $keyword])->links() }}
-            </div>
         </div>
+        <!-- Pagination -->
+        <div class="mt-8">
+            {{ $posts->appends(['keyword' => $keyword])->links('vendor.pagination.tailwind') }}
+        </div>
+        @endif
     </div>
 </div>
 @endsection

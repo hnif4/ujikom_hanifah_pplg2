@@ -81,3 +81,8 @@ Route::middleware('auth:api_guest')->group(function () {
     Route::put('guest/profile/password', [ProfileController::class, 'updatePassword']);
 });
 
+Route::get('/gallery/{gallery}/photos', function($id) {
+    $gallery = App\Models\Galery::findOrFail($id);
+    return $gallery->photos;
+});
+

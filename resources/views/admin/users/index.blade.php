@@ -26,7 +26,6 @@
                 <table class="min-w-full table-auto">
                     <thead class="bg-gray-700 text-white">
                         <tr>
-                            <th class="w-1/4 px-6 py-3 text-left text-lg font-medium text-white uppercase tracking-wider">ID</th>
                             <th class="w-1/4 px-6 py-3 text-left text-lg font-medium text-white uppercase tracking-wider">NAMA</th>
                             <th class="w-1/4 px-6 py-3 text-left text-lg font-medium text-white uppercase tracking-wider">EMAIL</th>
                             <th class="w-1/4 px-6 py-3 text-left text-lg font-medium text-white uppercase tracking-wider">STATUS</th>
@@ -36,9 +35,6 @@
                     <tbody class="bg-white divide-y divide-gray-200">
                         @forelse($users as $user)
                         <tr class="hover:bg-gray-100">
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-lg font-medium text-gray-900">{{ $user->id }}</div>
-                            </td>
                             <td class="px-6 py-4 whitespace-normal">
                                 <div class="text-lg font-medium text-gray-900">{{ $user->name }}</div>
                             </td>
